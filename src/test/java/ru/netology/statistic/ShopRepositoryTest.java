@@ -3,8 +3,6 @@ package ru.netology.statistic;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ShopRepositoryTest {
 
     @Test
@@ -26,6 +24,22 @@ class ShopRepositoryTest {
     }
 
     @Test
+    void shouldSuccessfulAdd() {
+        Product product1 = new Product(1, "молоко", 25);
+        Product product2 = new Product(2, "хлеб", 15);
+        Product product3 = new Product(3, "яйца", 30);
+
+        ShopRepository shopRepository = new ShopRepository();
+        shopRepository.add(product1);
+        shopRepository.add(product2);
+        shopRepository.add(product3);
+
+        Product[] expected = {product1, product2, product3};
+        Product[] actual = shopRepository.findAll();
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
     void findAll() {
         Product product1 = new Product(1, "молоко", 25);
         Product product2 = new Product(2, "хлеб", 15);
@@ -41,7 +55,7 @@ class ShopRepositoryTest {
     }
 
     @Test
-    void remove() {
+    void shouldRemoveById() {
         Product product1 = new Product(1, "молоко", 25);
         Product product2 = new Product(2, "хлеб", 15);
         Product product3 = new Product(3, "яйца", 30);
@@ -50,7 +64,7 @@ class ShopRepositoryTest {
         shopRepository.add(product1);
         shopRepository.add(product2);
         shopRepository.add(product3);
-        shopRepository.remove(1);
+        shopRepository.removeById(1);
         Product[] expected = {product2, product3};
         Product[] actual = shopRepository.findAll();
         Assertions.assertArrayEquals(expected, actual);
@@ -69,7 +83,7 @@ class ShopRepositoryTest {
     }
 
     @Test
-    void removeById() {
+    void removeByIdThrowsNotFoundException() {
         Product product1 = new Product(1, "молоко", 25);
         Product product2 = new Product(2, "хлеб", 15);
         Product product3 = new Product(3, "яйца", 30);
